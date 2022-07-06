@@ -190,7 +190,6 @@ def login():
          checkemployee = mycursor.fetchone()
          if checkemployee:
             session['loggedin'] = True
-            # session['Password'] = checkemployee['Password',]
             return render_template('employee.html',checkemployee=checkemployee) 
          else:
             msg= 'wrong login'
@@ -329,10 +328,9 @@ def update():
 @app.route('/appointmentofdoctor')
 def appointmentofdotor():
     if 'loggedin' in session:
-       mycursor.execute('SELECT Patient.name,Patient.Email,booking.date,booking.time FROM booking JOIN Patient ON p_email=Email WHERE d_id = % s', (session['id'],))
-       myresult = mycursor.fetchall()    
-       return render_template("appointmentofdoctor.html",myresult=myresult)
-    return render_template("appointmentofdoctor.html")
+        mycursor.execute('SELECT name, p_email, date,time FROM booking JOIN Patient ON p_email=Email WHERE d_id = % s', (session['id'],))
+        myresult = mycursor.fetchall()    
+        return render_template("appointmentofdoctor.html",myresult=myresult)
 
 
 
